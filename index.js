@@ -20,8 +20,9 @@ app.use((req, res, next) => {
     next();
 } )
 
+
 app.get("/", function (req, res) {
-    res.send("Hello Awdiz");
+    res.send("Welcome to awdiz backend server");
 })
 
 app.use("/api/v1" , router)
