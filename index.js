@@ -14,19 +14,16 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json())
 
-app.use((req, res, next) => {
-    // console.log("hi from midddleware use")
-    // res.send("hi from midddleware use")
-    next();
-} )
-
+// app.use((req, res, next) => {
+//     // res.send("hi from midddleware use")
+//     next();
+// } )
 
 app.get("/", function (req, res) {
     res.send("Welcome to awdiz backend server");
 })
 
 app.use("/api/v1" , router)
-
 
 mongoose.connect(process.env.MONGOURL).then(() => console.log("Database Connected"));
 

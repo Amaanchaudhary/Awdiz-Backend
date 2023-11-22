@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 export const Login = async (req, res) => {
     // res.send("Hello from login")
     try{
-        const {email , password} = req.body;
+        const {email , password} = req.body.userData;
         if(!email || !password) return res.status(401).json({success : false , message : "All Fields are mandatory"})
 
         const user = await UserModals.findOne({email : email})

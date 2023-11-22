@@ -23,8 +23,6 @@ Step 1 : npm i morgan
 Step 2 : import morgan from morgan
 Step 3 : app.use(morgan('dev'))
 
-
-
 MVC structure (Modals,View,Controllers)
 
 git add .
