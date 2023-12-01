@@ -7,7 +7,7 @@ export const addCart = async (req, res) => {
 
         if (!productId || !userId) return res.status(404).json({ success: false, message: "User and Product ID are Mandatory" })
 
-        await UserModals.findByIdAndUpdate({ _id: userId }, { $push: { cart: productId }})
+        await UserModals.findByIdAndUpdate({ _id: userId }, { $push: { cart: productId } })
 
         return res.status(201).json({ success: true, message: "Product Added to Cart Successfully" })
 
@@ -19,20 +19,51 @@ export const addCart = async (req, res) => {
 
 export const allCartProducts = async (req, res) => {
     try {
-        const {id} = req.body
+        const { id } = req.body
         // console.log(id)
-        if(!id) return res.status(404).json({success : false , message : "Id not found"})
-        
+        if (!id) return res.status(404).json({ success: false, message: "Id not found" })
+
         const productIds = await UserModals.findById(id).select("cart -_id")
-        console.log(productIds.cart[0]) 
-        if(productIds){ 
-            const products = await ProductModals.findById(productIds.cart[2])
-            console.log(products)
-            return res.status(200).json({success : true , message : "Products Found." , products});
+        console.log(productIds.cart)
+        if (productIds) {
+            var finalProducts = [];
+            for (var i = 0; i < productIds.cart.length; i++) {
+                const productData = await ProductModals.findById(productIds.cart[i])
+                finalProducts.push(productData)
+            }
+            // console.log(products)
+            return res.status(200).json({ success: true, message: "Products Found.", products: finalProducts });
         }
         return res.status(404).json({ sucess: false, message: "Product Not found" })
     } catch (error) {
         console.log(error)
+        return res.status(500).json({ success: false, message: error })
+    }
+}
+
+export const deleteCartProduct = async (req , res) => {
+    try{
+        const {productId , userId} = req.body
+
+        if(!productId || !userId) return res.status(404).json({success : false , message : "User and Product are mandatory"})
+        
+        const user = await UserModals.findById(userId)
+
+        if (!user) return res.status(404).json({ success: false, message: "User not found.." })
+
+        const index = user.cart.indexOf(productId)
+        // console.log(index , "immdx") 
+        user.cart.splice(index , 1);
+        await user.save()
+
+        var userCart = []
+        for(var i = 0 ; i < user.cart.length ; i++){
+            const productData = await ProductModals.findById(user.cart[i])
+            userCart.push(productData)
+        }
+        return res.status(200).json({success : true , message : "Product Deleted Successfully" , products : userCart })
+
+    }catch(error){
         return res.status(500).json({ success: false, message: error })
     }
 }
