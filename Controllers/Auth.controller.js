@@ -70,9 +70,11 @@ export const getCurrentUser = async (req , res) => {
 
         const {id} = await jwt.verify(token , process.env.JWT_SECRET);
 
-        console.log(id , "id")
+        // console.log(id , "id")
 
         const user = await UserModals.findById(id);
+
+        // console.log(user, 'user');
 
         if(!user) return res.status(401).json({success : false , message : "User not Found"})
 

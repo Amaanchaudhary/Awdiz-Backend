@@ -1,9 +1,12 @@
-import mongoose, {Schema} from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 const user = new Schema({
-    name : String,
+    name: {
+        type: String       //aisa bhi karsakte hai
+    },
     email: String,
     password: String,
+    cart: [String],  
 })
 
-export default mongoose.model("User" , user);
+export default mongoose.model("User", user);
