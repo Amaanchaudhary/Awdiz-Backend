@@ -37,7 +37,7 @@ export const allCartProducts = async (req, res) => {
         return res.status(404).json({ sucess: false, message: "Product Not found" })
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ success: false, message: error })
+        return res.status(500).json({ success: false, message: error.message })
     }
 }
 
@@ -64,6 +64,6 @@ export const deleteCartProduct = async (req , res) => {
         return res.status(200).json({success : true , message : "Product Deleted Successfully" , products : userCart })
 
     }catch(error){
-        return res.status(500).json({ success: false, message: error })
+        return res.status(500).json({ success: false, message: error.message })
     }
 }

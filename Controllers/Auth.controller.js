@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
 
 export const Login = async (req, res) => {
-    // res.send("Hello from login")
+    res.send("Hello from login")
     try{
         const {email , password} = req.body.userData;
         if(!email || !password) return res.status(401).json({success : false , message : "All Fields are mandatory"})
@@ -29,7 +29,7 @@ export const Login = async (req, res) => {
         return res.status(200).json({success : true , message : "Login Successfull", user : {name : user.name , id : user._id},token});
 
     }catch(error){
-        return res.status(500).json({success : false , message : error})
+        return res.status(500).json({success : false , message : error.message})
     }
 
 
