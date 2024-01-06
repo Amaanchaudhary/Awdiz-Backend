@@ -6,7 +6,7 @@ import UserRoutes from './User.routes.js';
 const router = Router()
 
 
-router.use( "/auth", AuthRouters)
+router.use("/auth", AuthRouters)
 router.use("/product" , ProductRouters);
 router.use("/user" , UserRoutes)
 

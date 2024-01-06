@@ -85,3 +85,28 @@ export const getCurrentUser = async (req , res) => {
         return res.status(500).json({success : false , message : error})
     }
 }
+
+
+
+export const putTest = (req , res) => {
+    try{
+        const userID = req.params.id    //accessed id send by user in the url
+
+        res.status(200).json({success : true , message : userID});        
+    }
+    catch(error){
+        res.status(500).json({success : false , message : error});
+    }
+}
+
+export const patchTest = (req , res) => {
+    try{
+        const userID = req.params.id    //accessed id send by user in the url
+        const {name} = req.body 
+
+        res.status(200).json({success : true , message  : {userID , name}});        
+    }
+    catch(error){
+        res.status(500).json({success : false , message : error});
+    }
+}
