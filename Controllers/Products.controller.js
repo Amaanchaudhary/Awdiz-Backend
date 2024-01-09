@@ -3,9 +3,11 @@ import ProductModals from "../Modals/Product.modals.js"
 export const getllProducts = async (req, res) => {
     try {
         const products = await ProductModals.find({}).limit(10).select("-createdAt -updatedAt -__v")
+
         if (products.length) {
             res.status(200).json({ success: true, message: "Products Found.", products })
         }
+        
         return res.status(404).json({ sucess: false, message: "product Not Found!" })
 
     } catch (error) {
